@@ -125,3 +125,38 @@ def create_user(user:dict):
         "message":"user created",
         "data":user
     }
+
+
+from pydantic import BaseModel
+
+class User_Schema(BaseModel):
+    name:str
+    age:int
+    is_active:bool = True # setting a default value 
+
+@app.post("/create_user")
+def create_user(user:User_Schema):
+    return{
+        "message":"user created",
+        "data": user
+    }
+
+
+
+
+#  video 7 create schemas , data validation , nested models 
+
+# nested models
+
+
+class addres(BaseModel):
+    city: str
+    pincode : int
+class userz(BaseModel):
+    name:str
+    age:int
+    Address : addres 
+
+@app.post("/add_user")
+def add_user(User:userz):
+    return User
